@@ -35,6 +35,7 @@ app.use("/api/cart", cartRoutes);
 
 app.use(express.static("./frontend/build"));
 
+let PORT;
 app.set("PORT", process.env.PORT || 5000);
 console.log("++++++++++++++++" + app.get("PORT"));
 const path = require("path");
