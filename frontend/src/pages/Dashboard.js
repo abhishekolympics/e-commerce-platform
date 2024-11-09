@@ -76,7 +76,7 @@ function Dashboard({ setItemCount }) {
         console.log("Error fetching cart items:", error);
         // setItemCounter(0);  // Set item count to 0 if there's an error or no items
       });
-  }, []);
+  }, [apiUrl,setItemCount]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");

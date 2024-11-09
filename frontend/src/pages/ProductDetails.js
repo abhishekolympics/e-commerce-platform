@@ -37,7 +37,7 @@ function ProductDetails({ incrementItemCount }) {
         });
     };
     fetchDetails();
-  }, [id]);
+  }, [id,apiUrl]);
 
   if (!product) return <p>Loading...</p>;
 

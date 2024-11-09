@@ -19,7 +19,7 @@ function Cart() {
       .catch((error) => {
         console.log("Error fetching cart items", error);
       });
-  }, [userId]);
+  }, [userId,apiUrl]);
 
   // Function to remove an item from the cart
   const removeItem = async (productId) => {
