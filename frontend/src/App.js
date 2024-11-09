@@ -9,7 +9,6 @@ import {
   Navigate,
   Route,
   Routes,
-  BrowserRouter as Router,
   useLocation,
 } from "react-router-dom";
 
@@ -18,13 +17,14 @@ function App() {
   const hideCartButtonPaths = ["/login", "/register", "/cart"];
   const showCartButton = !hideCartButtonPaths.includes(location.pathname);
   const [itemCount, setItemCount] = useState(0);
-  const [actualQuantity, setActualQuantity] = useState(0);
+  // const [actualQuantity, setActualQuantity] = useState(0);
 
   const incrementItemCount = () => {
     setItemCount(prevCount => prevCount + 1);
   };
 
   const newQuantitySetter =() => {
+    // setActualQuantity(prevActu)
     setItemCount(prevCount => prevCount + 1);
   }
 
@@ -50,7 +50,7 @@ function App() {
             <Route
               path="/dashboard"
               element={
-                isAuthenticated ? <Dashboard setActualQuantity={newQuantitySetter} actualValue={actualQuantity}/> : <Navigate to={"/login"} />
+                isAuthenticated ? <Dashboard setActualQuantity={newQuantitySetter} actualValue={0}/> : <Navigate to={"/login"} />
               }
             />
             <Route path="/product/:id" element={<ProductDetails incrementItemCount={incrementItemCount}/>} />
