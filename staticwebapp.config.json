@@ -1,9 +1,5 @@
 {
-    "routes": [
-      {
-        "route": "/*",
-        "allowedRoles": ["reader"]
-      }
-    ]
+  "navigationFallback": {
+    "rewrite": "/frontend/index.html"
   }
-  
+}
