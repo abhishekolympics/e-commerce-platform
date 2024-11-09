@@ -3,9 +3,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Cart() {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const userId = localStorage.getItem("userId"); // Replace with the logged-in user's ID
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
+
 
   // Fetch cart items from the API when the component mounts or userId changes
   useEffect(() => {

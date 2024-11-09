@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [formData, setFormData] = useState({
     name: "",
     email: "",

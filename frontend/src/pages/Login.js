@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 

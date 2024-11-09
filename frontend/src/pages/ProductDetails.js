@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 function ProductDetails({ incrementItemCount }) {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const navigate = useNavigate();
