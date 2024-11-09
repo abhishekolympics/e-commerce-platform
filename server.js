@@ -31,10 +31,6 @@ mongoose
     console.log("Error connecting to MongoDB=", error);
   });
 
-// app.get("/", (req, res) => {
-//   res.status(200).json("API is running.");
-// });
-
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
@@ -43,16 +39,6 @@ app.use(express.static("./frontend/build"));
 
 let PORT;
 app.set("PORT", process.env.PORT || 5000);
-console.log("++++++++++++++++" + app.get("PORT"));
-const path = require("path");
-
-// Log frontend build path
-const buildPath = path.join(__dirname, "./frontend/build");
-console.log("Frontend build path:", buildPath);
-
-app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-});
 
 try {
   app.listen(PORT, () => {
