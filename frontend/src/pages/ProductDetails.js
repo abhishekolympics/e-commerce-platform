@@ -8,10 +8,10 @@ function ProductDetails({ incrementItemCount }) {
   const navigate = useNavigate();
 
   const addToCart = () => {
-    const userId = localStorage.getItem('userId');
-    console.log("user id inside cart=",userId);
+    const userId = localStorage.getItem("userId");
+    console.log("user id inside cart=", userId);
     axios
-      .post("http://localhost:5000/api/cart/add", {
+      .post(`${apiUrl}/api/cart/add`, {
         userId,
         productId: id,
         quantity: 1,
@@ -28,7 +28,7 @@ function ProductDetails({ incrementItemCount }) {
   useEffect(() => {
     const fetchDetails = async () => {
       axios
-        .get(`http://localhost:5000/api/products/${id}`, {
+        .get(`${apiUrl}/api/products/${id}`, {
           authorization: "Bearer" + localStorage.getItem("token"),
         })
         .then((res) => {

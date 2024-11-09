@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -9,14 +9,11 @@ function Login() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/users/login",
-        formData
-      );
+      const response = await axios.post(`${apiUrl}/api/users/login`, formData);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data._id);
       navigate("/dashboard");

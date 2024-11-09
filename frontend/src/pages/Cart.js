@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
-  const userId = localStorage.getItem('userId'); // Replace with the logged-in user's ID
+  const userId = localStorage.getItem("userId"); // Replace with the logged-in user's ID
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
 
   // Fetch cart items from the API when the component mounts or userId changes
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/cart/${userId}`)
+      .get(`${apiUrl}/api/cart/${userId}`)
       .then((response) => {
         setCartItems(response.data);
       })
@@ -22,10 +22,12 @@ function Cart() {
   // Function to remove an item from the cart
   const removeItem = async (productId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/cart/remove`, {
+      await axios.delete(`${apiUrl}/api/cart/remove`, {
         data: { userId, productId },
       });
-      setCartItems((prevItems) => prevItems.filter(item => item.productId._id !== productId));
+      setCartItems((prevItems) =>
+        prevItems.filter((item) => item.productId._id !== productId)
+      );
       alert("Item removed from cart.");
     } catch (error) {
       console.error("Error removing item from cart", error);
@@ -40,7 +42,7 @@ function Cart() {
     }
 
     try {
-      await axios.put(`http://localhost:5000/api/cart/update`, {
+      await axios.put(`${apiUrl}/api/cart/update`, {
         userId,
         productId,
         quantity: newQuantity,
@@ -48,7 +50,9 @@ function Cart() {
       // Update cartItems in state
       setCartItems((prevItems) =>
         prevItems.map((item) =>
-          item.productId._id === productId ? { ...item, quantity: newQuantity } : item
+          item.productId._id === productId
+            ? { ...item, quantity: newQuantity }
+            : item
         )
       );
       alert("Quantity updated.");
@@ -84,25 +88,54 @@ function Cart() {
         <p>Your cart is empty.</p>
       ) : (
         cartItems.map((item) => (
-          <div key={item.productId._id} style={{ border: "1px solid #ccc", padding: "10px", margin: "10px" }}>
-            <img src={item.productId.imageUrl} alt={item.productId.name} style={{ width: "100px" }} />
+          <div
+            key={item.productId._id}
+            style={{
+              border: "1px solid #ccc",
+              padding: "10px",
+              margin: "10px",
+            }}
+          >
+            <img
+              src={item.productId.imageUrl}
+              alt={item.productId.name}
+              style={{ width: "100px" }}
+            />
             <h4>{item.productId.name}</h4>
             <p>Price: ${item.productId.price}</p>
             <div>
-              <button onClick={() => decrementQuantity(item.productId._id, item.quantity)}>−</button>
-              <input 
-                type="number" 
-                value={item.quantity} 
-                readOnly 
-                style={{ width: "50px", textAlign: "center", margin: "0 5px" }} 
+              <button
+                onClick={() =>
+                  decrementQuantity(item.productId._id, item.quantity)
+                }
+              >
+                −
+              </button>
+              <input
+                type="number"
+                value={item.quantity}
+                readOnly
+                style={{ width: "50px", textAlign: "center", margin: "0 5px" }}
               />
-              <button onClick={() => incrementQuantity(item.productId._id, item.quantity, item.productId.countInStock)}>+</button>
+              <button
+                onClick={() =>
+                  incrementQuantity(
+                    item.productId._id,
+                    item.quantity,
+                    item.productId.countInStock
+                  )
+                }
+              >
+                +
+              </button>
             </div>
-            <button onClick={() => removeItem(item.productId._id)}>Remove</button>
+            <button onClick={() => removeItem(item.productId._id)}>
+              Remove
+            </button>
           </div>
         ))
       )}
-      <button onClick={() => navigate('/dashboard')}>Back</button>
+      <button onClick={() => navigate("/dashboard")}>Back</button>
     </div>
   );
 }

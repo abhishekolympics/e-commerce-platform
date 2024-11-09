@@ -14,6 +14,7 @@ function Dashboard({ setItemCount }) {
   const handleCategory = (e) => setCategory(e.target.value);
   const handleMinPrice = (e) => setMinPrice(e.target.value);
   const handleMaxPrice = (e) => setMaxPrice(e.target.value);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleClear = async (e) => {
     setSearch("");
@@ -23,7 +24,7 @@ function Dashboard({ setItemCount }) {
 
     e.preventDefault();
     await axios
-      .get("http://localhost:5000/api/products")
+      .get(`${apiUrl}/api/products`)
       .then((response) => {
         setProducts(response.data);
       })
@@ -34,7 +35,7 @@ function Dashboard({ setItemCount }) {
   const handleSearch = async (e) => {
     e.preventDefault();
     await axios
-      .get("http://localhost:5000/api/products", {
+      .get(`${apiUrl}/api/products`, {
         params: {
           search,
           category,
@@ -51,7 +52,7 @@ function Dashboard({ setItemCount }) {
   };
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/products")
+      .get(`${apiUrl}/api/products`)
       .then((response) => {
         setProducts(response.data);
       })
@@ -61,7 +62,7 @@ function Dashboard({ setItemCount }) {
 
     const userId = localStorage.getItem("userId");
     axios
-      .get(`http://localhost:5000/api/cart/${userId}`)
+      .get(`${apiUrl}/api/cart/${userId}`)
       .then((response) => {
         const items = response.data || [];
         const totalItemCount = items.reduce(
@@ -69,7 +70,7 @@ function Dashboard({ setItemCount }) {
           0
         );
         setItemCount(totalItemCount); // Set item count based on cart data
-        console.log('insde useeffect inside cart=',totalItemCount);
+        console.log("insde useeffect inside cart=", totalItemCount);
       })
       .catch((error) => {
         console.log("Error fetching cart items:", error);
@@ -81,7 +82,6 @@ function Dashboard({ setItemCount }) {
     localStorage.removeItem("token");
     navigate("/login");
   };
-
 
   const showClearButton = search || category || minPrice || maxPrice;
 
