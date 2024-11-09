@@ -25,9 +25,9 @@ mongoose
     console.log("Error connecting to MongoDB=", error);
   });
 
-app.get("/", (req, res) => {
-  res.status(200).json("API is running.");
-});
+// app.get("/", (req, res) => {
+//   res.status(200).json("API is running.");
+// });
 
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
@@ -45,7 +45,7 @@ console.log("Frontend build path:", buildPath);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(buildPath));
 
-  app.get("*", (req, res) => {
+  app.get("/", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
   });
 }
