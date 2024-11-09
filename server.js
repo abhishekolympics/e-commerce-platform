@@ -13,7 +13,16 @@ dotenv.config();
 // Log MongoDB URI to check if it's correctly loaded
 console.log("MongoDB URI: ", process.env.MONGODB_URI);
 
-app.use(cors());
+const corsOptions = {
+  origin: [
+    "https://gray-beach-0c6d5dc1e.5.azurestaticapps.net/",
+    "https://gray-beach-0c6d5dc1e.5.azurestaticapps.net/",
+  ], // Replace with your frontend's domain(s)
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 mongoose
