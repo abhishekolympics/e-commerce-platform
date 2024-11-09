@@ -33,22 +33,19 @@ app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 
-PORT = 5000;
+app.use(express.static("./frontend/build"));
 
+app.set("PORT", process.env.PORT || 5000);
+console.log("++++++++++++++++" + app.get("PORT"));
 const path = require("path");
 
 // Log frontend build path
-const buildPath = path.join(__dirname, "frontend/build");
+const buildPath = path.join(__dirname, "./frontend/build");
 console.log("Frontend build path:", buildPath);
 
-// Serve static files from the frontend if in production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(buildPath));
-
-  app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-  });
-}
+app.get("/", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+});
 
 try {
   app.listen(PORT, () => {
@@ -56,5 +53,5 @@ try {
   });
 } catch (error) {
   console.error("Error starting server:", error);
-  process.exit(1);  // Exit if the server fails to start
+  process.exit(1); // Exit if the server fails to start
 }
