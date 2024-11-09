@@ -35,7 +35,9 @@ app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 
-app.use(express.static("./frontend/build"));
+app.get("/", function (req, res) {
+  res.send("Hello world");
+});
 
 let PORT;
 app.set("PORT", process.env.PORT || 5000);
